@@ -30,3 +30,23 @@ class Parents(Base):
     parentstatusID = Column(Integer, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    
+class studentDetails(Base):
+    __tablename__  = "studentDetails"
+    id             = Column(Integer, primary_key=True, index=True)
+    yashayanYeri   = Column(String, nullable=False)
+    okuwaGirenYID  = Column(Integer, nullable=False)
+    studentID      = Column(Integer, nullable=False)
+    doglanSenesi   = Column(String, nullable=False)
+    doglanYeri     = Column(String, nullable=False)
+    milleti        = Column(String, nullable=False)
+    tamamlanMek    = Column(String, nullable=False)
+    bilyanDilleri  = Column(String, nullable=False)
+    hunar          = Column(String, nullable=False)
+    alymlykDereje  = Column(String, nullable=False)
+    bilimi         = Column(String, nullable=False)
+    partiyaAgzasy  = Column(String, nullable=False)
+    dasYurtBolm    = Column(String, nullable=False)
+    mejlisAgzasy   = Column(String, nullable=False)
+    createAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
