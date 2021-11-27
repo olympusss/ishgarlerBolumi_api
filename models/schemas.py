@@ -28,3 +28,22 @@ class add_parent(BaseModel):
     
     class Config:
         orm_mode = True
+        
+class add_studentDetail(BaseModel):
+    yashayanYeri   : str
+    okuwaGirenYID  : int
+    studentID      : int
+    doglanSenesi   : str
+    doglanYeri     : str
+    milleti        : str
+    tamamlanMek    : str
+    bilyanDilleri  : str
+    hunar          : str
+    alymlykDereje  : str
+    bilimi         : str
+    partiyaAgzasy  : str
+    dasYurtBolm    : str
+    mejlisAgzasy   : str
+    
+    class Config:
+        orm_mode = True
