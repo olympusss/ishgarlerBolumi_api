@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import update
 from db import get_db
-from models import Students, add_student
+from models import Students, add_student, update_student
 from returns import Returns
 
 students_router = APIRouter()
@@ -41,3 +42,21 @@ def get_student(db: Session = Depends(get_db)):
         return result
     else:
         return Returns.BODY_NULL
+    
+@students_router.put("/update-student")
+def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
+    new_update = db.query(Students).filter(Students.id == id).\
+        update({
+            Students.studentID  : req.studentID,
+            Students.fatherName : req.fatherName,
+            Students.name       : req.name,
+            Students.surname    : req.surname,
+            Students.course     : req.course,
+            Students.facultyID  : req.facultyID,
+            Students.klass      : req.klass
+        }, synchronize_session=False)
+    db.commit()
+    if new_update:
+        return Returns.UPDATED
+    else:
+        return Returns.NOT_UPDATED

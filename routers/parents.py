@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.operators import endswith_op
 from db import get_db
-from models import Parents, add_parent
+from models import Parents, add_parent, update_parent
 from returns import Returns
 
 parents_router = APIRouter()
@@ -32,6 +33,7 @@ def add_parent(req: add_parent, db: Session = Depends(get_db)):
 @parents_router.get("/get-parent")
 def get_parent(db: Session = Depends(get_db)):
     result = db.query(
+        Parents.id,
         Parents.fatherName,
         Parents.name,
         Parents.surname,
@@ -47,3 +49,25 @@ def get_parent(db: Session = Depends(get_db)):
         return result
     else:
         return Returns.BODY_NULL
+    
+    
+@parents_router.put("/update-parent")
+def update_parent(id: int, req: update_parent, db: Session = Depends(get_db)):
+    new_update = db.query(Parents).filter(Parents.id == id).\
+        update({
+            Parents.fatherName      : req.fatherName,
+            Parents.name            : req.name,
+            Parents.surname         : req.surname,
+            Parents.birthPlace      : req.birthPlace,
+            Parents.birthYear       : req.birthYear,
+            Parents.yashayanYeri    : req.yashayanYeri,
+            Parents.workingPlace    : req.workingPlace,
+            Parents.sudimost        : req.sudimost,
+            Parents.studentID       : req.studentID,
+            Parents.parentstatusID  : req.parentstatusID
+        }, synchronize_session=False)
+    db.commit()
+    if new_update:
+        return Returns.UPDATED
+    else:   
+        return Returns.NOT_UPDATED

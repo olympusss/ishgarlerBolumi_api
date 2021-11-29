@@ -5,7 +5,7 @@ from datetime import datetime
 class Students(Base):
     __tablename__  = "students"
     id             = Column(Integer, primary_key=True, index=True)
-    studentID      = Column(String, nullable=False)
+    studentID      = Column(Integer, nullable=False)
     fatherName     = Column(String, nullable=False)
     name           = Column(String, nullable=False)
     surname        = Column(String, nullable=False)

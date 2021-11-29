@@ -7,3 +7,5 @@ from models.models import parentStatus
 from models.schemas import add_student
 from models.schemas import add_parent
 from models.schemas import add_studentDetail
+from models.schemas import update_parent
+from models.schemas import update_student

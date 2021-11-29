@@ -59,3 +59,28 @@ def get_student_detail(db: Session = Depends(get_db)):
         return Returns.BODY_NULL
     else:
         return result
+    
+@student_detail_router.put("/update-student-detail")
+def update_student_detail(id: int, req: add_studentDetail, db: Session = Depends(get_db)):
+    new_update = db.query(studentD).filter(studentD.id == id).\
+        update({
+            studentD.yashayanYeri   : req.yashayanYeri,
+            studentD.okuwaGirenYID  : req.okuwaGirenYID,
+            studentD.studentID      : req.studentID,
+            studentD.doglanSenesi   : req.doglanSenesi,
+            studentD.doglanYeri     : req.doglanYeri,
+            studentD.milleti        : req.milleti,
+            studentD.tamamlanMek    : req.tamamlanMek,
+            studentD.bilyanDilleri  : req.bilyanDilleri,
+            studentD.hunar          : req. hunar,
+            studentD.alymlykDereje  : req.alymlykDereje,
+            studentD.bilimi         : req.bilimi,
+            studentD.partiyaAgzasy  : req.partiyaAgzasy,
+            studentD.dasYurtBolm    : req.dasYurtBolm,
+            studentD.mejlisAgzasy   : req.mejlisAgzasy,
+        }, synchronize_session=False)
+    db.commit()
+    if new_update:
+        return Returns.UPDATED
+    else:
+        return Returns.NOT_UPDATED
