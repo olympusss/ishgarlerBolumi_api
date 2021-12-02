@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from db import get_db
 from models import studentDetails as studentD, add_studentDetail
 from returns import Returns
+import json
 
 student_detail_router = APIRouter()
 
