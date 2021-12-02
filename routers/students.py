@@ -60,3 +60,13 @@ def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
         return Returns.UPDATED
     else:
         return Returns.NOT_UPDATED
+    
+@students_router.delete("/delete-student")
+def delete_student(id: int, db: Session = Depends(get_db)):
+    new_delete = db.query(Students).filter(Students.id == id).\
+        delete(synchronize_session=False)
+    db.commit()
+    if new_delete:
+        return Returns.DELETED
+    else:
+        return Returns.NOT_DELETED

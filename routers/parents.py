@@ -71,3 +71,13 @@ def update_parent(id: int, req: update_parent, db: Session = Depends(get_db)):
         return Returns.UPDATED
     else:   
         return Returns.NOT_UPDATED
+    
+@parents_router.delete("/delete-parent")
+def delete_parent(id: int, db: Session = Depends(get_db)):
+    new_delete = db.query(Parents).filter(Parents.id == id).\
+        delete(synchronize_session=False)
+    db.commit()
+    if new_delete:
+        return Returns.DELETED
+    else:
+        return Returns.NOT_DELETED

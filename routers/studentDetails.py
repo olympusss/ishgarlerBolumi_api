@@ -84,3 +84,13 @@ def update_student_detail(id: int, req: add_studentDetail, db: Session = Depends
         return Returns.UPDATED
     else:
         return Returns.NOT_UPDATED
+    
+@student_detail_router.delete("/delete-student-detail")
+def delete_student_detail(id: int, db: Session = Depends(get_db)):
+    new_delete = db.query(studentD).filter(studentD.id == id).\
+        delete(synchronize_session=False)
+    db.commit()
+    if new_delete:
+        return Returns.DELETED
+    else:
+        return Returns.NOT_DELETED
