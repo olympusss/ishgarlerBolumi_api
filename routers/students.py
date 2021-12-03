@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.expression import update
 from db import get_db
 from models import Students, add_student, update_student
 from returns import Returns

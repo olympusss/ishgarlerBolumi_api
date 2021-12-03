@@ -7,7 +7,7 @@ user     = "postgres"
 password = "183139"
 host     = "127.0.0.1"
 port     = "5432"
-db       = "ishgarlerBolumi"
+db       = "ishgarlerbolumi"
 
 SQLALCHEMY_DATABASE_URL = f"{ dbtype }://{ user }:{ password }@{ host }:{ port }/{ db }"
 
@@ -15,7 +15,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
-Base.metadata.create_all(engine)
+
 
 def get_db():
     db = SessionLocal()
