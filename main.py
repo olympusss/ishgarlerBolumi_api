@@ -30,4 +30,4 @@ app.include_router(welayat_router         , tags=["Welayat"])
 app.include_router(parent_status_router   , tags=["Parent Status"])
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", host="10.102.20.184", port=8000, reload=True, debug=False) 
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, debug=False) 
