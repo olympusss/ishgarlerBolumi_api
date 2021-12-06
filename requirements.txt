@@ -6,3 +6,4 @@ psycopg2
 typing
 pydantic
 fastapi-socketio
+api
