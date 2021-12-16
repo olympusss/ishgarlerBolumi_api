@@ -6,3 +6,6 @@ class Returns:
     NOT_UPDATED  = {"error" : True, "body" : "NOT_UPDATED"}
     DELETED      = {"error" : True, "body" : "DELETED"}
     NOT_DELETED  = {"error" : True, "body" : "NOT_DELETED"}
+    
+    def object(obj):
+        return {"error" : False, "body" : obj}

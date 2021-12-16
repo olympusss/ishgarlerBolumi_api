@@ -10,3 +10,6 @@ api
 gunicorn
 importlib
 hypercorn[trio]
+python-jose
+PyJWT
+bcrypt

@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, Float, Boolean, ForeignKey
+from sqlalchemy.sql.expression import null
 from db import Base
 from datetime import datetime
 
@@ -73,5 +74,16 @@ class parentStatus(Base):
     id             = Column(Integer, primary_key=True, index=True)
     status         = Column(String, nullable=False)
     name           = Column(String, nullable=False)
+    createAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    
+class Registration(Base):
+    __tablename__  = "registration"
+    id             = Column(Integer, primary_key=True, index=True)
+    username       = Column(String, nullable=False)
+    password       = Column(String, nullable=False)
+    access         = Column(Boolean, nullable=False, default=False)
+    staffID        = Column(Integer, nullable=False, default=1)
+    token          = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)

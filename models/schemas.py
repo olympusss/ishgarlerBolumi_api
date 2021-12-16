@@ -1,5 +1,7 @@
 from pydantic import BaseModel
+from typing import List
 
+from sqlalchemy.sql.expression import true
 from db.connection import Base
 
 class add_student(BaseModel):
@@ -72,5 +74,22 @@ class update_student(BaseModel):
     facultyID   : int
     klass       : str
     
+    class Config:
+        orm_mode = True
+        
+class filter_students(BaseModel):
+    filterField : List[str] = []
+    filterValue : List = []
+    sort        : str
+    sortType    : int
+    limit       : int
+    page        : int
+    
+    class Config:
+        orm_mode = True
+        
+class authentication(BaseModel):
+    username    : str
+    password    : str
     class Config:
         orm_mode = True

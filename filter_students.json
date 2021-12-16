@@ -1,0 +1,8 @@
+{
+    "filterField" : [],
+    "filterValue" : [],
+    "sort" : "str",
+    "sortType" : "0,1,2",
+    "limit" : 10,
+    "page" : 2
+}

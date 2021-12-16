@@ -7,6 +7,7 @@ from routers import student_detail_router
 from routers import faculty_router
 from routers import welayat_router
 from routers import parent_status_router
+from routers import authentication_router
 
 app = FastAPI()
 origins = ["*"]
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 Base.metadata.create_all(engine)
+app.include_router(authentication_router  , tags=["Authentication"])
 app.include_router(students_router        , tags=["Students"])
 app.include_router(parents_router         , tags=["Parents"])
 app.include_router(student_detail_router  , tags=["Student Detail"])
