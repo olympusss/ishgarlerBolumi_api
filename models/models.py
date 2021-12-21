@@ -10,7 +10,7 @@ class Students(Base):
     fatherName     = Column(String, nullable=False)
     name           = Column(String, nullable=False)
     surname        = Column(String, nullable=False)
-    course         = Column(String, nullable=False)
+    courseID       = Column(Integer, nullable=False)
     facultyID      = Column(Integer, nullable=False)
     klass          = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)

@@ -14,7 +14,7 @@ def add_student(req: add_student, db: Session = Depends(get_db)):
         fatherName = req.fatherName,
         name       = req.name,
         surname    = req.surname,
-        course     = req.course,
+        courseID   = req.courseID,
         facultyID  = req.facultyID,
         klass      = req.klass
     )
@@ -34,7 +34,7 @@ def get_student(db: Session = Depends(get_db)):
         Students.fatherName,
         Students.name,
         Students.surname,
-        Students.course,
+        Students.courseID,
         Students.facultyID,
         Students.klass
     ).all()
@@ -51,7 +51,7 @@ def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
             Students.fatherName : req.fatherName,
             Students.name       : req.name,
             Students.surname    : req.surname,
-            Students.course     : req.course,
+            Students.courseID   : req.course,
             Students.facultyID  : req.facultyID,
             Students.klass      : req.klass
         }, synchronize_session=False)

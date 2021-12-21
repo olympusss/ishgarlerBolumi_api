@@ -9,7 +9,7 @@ class add_student(BaseModel):
     fatherName  : str
     name        : str
     surname     : str
-    course      : str
+    courseID    : int
     facultyID   : int
     klass       : str
     
@@ -70,7 +70,7 @@ class update_student(BaseModel):
     fatherName  : str
     name        : str
     surname     : str
-    course      : str
+    courseID    : int
     facultyID   : int
     klass       : str
     
