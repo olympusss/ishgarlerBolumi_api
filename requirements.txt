@@ -5,11 +5,7 @@ sqlalchemy
 psycopg2
 typing
 pydantic
-fastapi-socketio
-api
 gunicorn
-importlib
-hypercorn[trio]
 python-jose
 PyJWT
 bcrypt

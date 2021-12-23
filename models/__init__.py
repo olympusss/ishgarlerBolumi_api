@@ -11,5 +11,5 @@ from models.schemas import add_studentDetail
 from models.schemas import update_parent
 from models.schemas import update_student
 from models.schemas import filter_students
-from models.schemas import authentication
-from models.schemas import log_in
+from models.schemas import sign_up
+from models.schemas import sign_in

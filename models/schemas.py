@@ -87,18 +87,17 @@ class filter_students(BaseModel):
     
     class Config:
         orm_mode = True
-        
-class authentication(BaseModel):
+    
+    
+class sign_in(BaseModel):
     username    : str
     password    : str
+    
     class Config:
         orm_mode = True
-
-class log_in(BaseModel):
-    username    : str
-    password    : str
+            
+class sign_up(sign_in):
     access      : bool
     staffID     : int
-    
     class Config:
         orm_mode = True
