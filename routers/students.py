@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
+from sqlalchemy import asc, desc, and_, or_
 from db import get_db
-from models import Students, add_student, update_student
+from models import Students, add_student, update_student, filter_students
 from returns import Returns
 
 students_router = APIRouter()
@@ -13,7 +14,7 @@ def add_student(req: add_student, db: Session = Depends(get_db)):
         fatherName = req.fatherName,
         name       = req.name,
         surname    = req.surname,
-        course     = req.course,
+        courseID   = req.courseID,
         facultyID  = req.facultyID,
         klass      = req.klass
     )
@@ -33,7 +34,7 @@ def get_student(db: Session = Depends(get_db)):
         Students.fatherName,
         Students.name,
         Students.surname,
-        Students.course,
+        Students.courseID,
         Students.facultyID,
         Students.klass
     ).all()
@@ -50,7 +51,7 @@ def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
             Students.fatherName : req.fatherName,
             Students.name       : req.name,
             Students.surname    : req.surname,
-            Students.course     : req.course,
+            Students.courseID   : req.course,
             Students.facultyID  : req.facultyID,
             Students.klass      : req.klass
         }, synchronize_session=False)
