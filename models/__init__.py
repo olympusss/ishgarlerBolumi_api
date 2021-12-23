@@ -12,3 +12,4 @@ from models.schemas import update_parent
 from models.schemas import update_student
 from models.schemas import filter_students
 from models.schemas import authentication
+from models.schemas import log_in

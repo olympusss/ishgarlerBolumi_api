@@ -82,7 +82,7 @@ class Registration(Base):
     id             = Column(Integer, primary_key=True, index=True)
     username       = Column(String, nullable=False)
     password       = Column(String, nullable=False)
-    access         = Column(Boolean, nullable=False, default=False)
+    access         = Column(Boolean, nullable=False, default=True)
     staffID        = Column(Integer, nullable=False, default=1)
     token          = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)

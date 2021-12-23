@@ -93,3 +93,12 @@ class authentication(BaseModel):
     password    : str
     class Config:
         orm_mode = True
+
+class log_in(BaseModel):
+    username    : str
+    password    : str
+    access      : bool
+    staffID     : int
+    
+    class Config:
+        orm_mode = True
