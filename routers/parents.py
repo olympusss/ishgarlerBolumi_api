@@ -9,18 +9,7 @@ parents_router = APIRouter()
 
 @parents_router.post("/add-parent")
 def add_parent(req: add_parent, db: Session = Depends(get_db)):
-    new_add = Parents(
-        fatherName     = req.fatherName,
-        name           = req.name,
-        surname        = req.surname,
-        birthPlace     = req.birthPlace,
-        birthYear      = req.birthYear,
-        yashayanYeri   = req.yashayanYeri,
-        workingPlace   = req.workingPlace,
-        sudimost       = req.sudimost,
-        studentID      = req.studentID,
-        parentstatusID = req.parentstatusID
-    )
+    new_add = Parents(**req.dict())
     
     if new_add:
         db.add(new_add)

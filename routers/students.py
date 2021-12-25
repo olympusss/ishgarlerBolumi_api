@@ -12,15 +12,7 @@ students_router = APIRouter()
 
 @students_router.post("/add-student")
 def add_student(req: add_student, db: Session = Depends(get_db)):
-    new_add = Students(
-        studentID  = req.studentID,
-        fatherName = req.fatherName,
-        name       = req.name,
-        surname    = req.surname,
-        courseID   = req.courseID,
-        facultyID  = req.facultyID,
-        klass      = req.klass
-    )
+    new_add = Students(**req.dict())
     if new_add:
         db.add(new_add)
         db.commit()
