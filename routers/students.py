@@ -1,9 +1,12 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Request, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy import asc, desc, and_, or_
 from db import get_db
 from models import Students, add_student, update_student, filter_students
 from returns import Returns
+import sys
+import os
+import shutil
 
 students_router = APIRouter()
 
@@ -70,3 +73,25 @@ def delete_student(id: int, db: Session = Depends(get_db)):
         return Returns.DELETED
     else:
         return Returns.NOT_DELETED
+    
+@students_router.put("/upload-image")
+def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File(...)):
+    
+    path = sys.path[0] + "uploads\students"
+    if not os.path.exists(path):
+        os.makedirs(path)
+    path = path + f"\\{file.filename}"
+    upload_file_path = "uploads/students/" + file.filename
+    
+    with open(path,  "wb") as file_object:
+        shutil.copyfileobj(file.file, file_object)
+        
+    new_update = db.query(Students).filter(Students.id == id).\
+        update({Students.image: upload_file_path}, synchronize_session=False)
+    db.commit()
+    if new_update:
+        return Returns.UPDATED
+    else:
+        return Returns.NOT_UPDATED
+        
+    

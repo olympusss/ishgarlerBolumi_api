@@ -13,6 +13,7 @@ class Students(Base):
     courseID       = Column(Integer, nullable=False)
     facultyID      = Column(Integer, nullable=False)
     klass          = Column(String, nullable=False)
+    image          = Column(String, nullable=True)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
     
