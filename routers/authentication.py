@@ -27,11 +27,8 @@ def log_on(req: sign_up, db: Session = Depends(get_db)):
     token = create_access_token(data=token_dict)
     token_res = {"token" : token}
     new_add = Registration(
-        username = req.username,
-        password = req.password,
-        access   = req.access,
-        staffID  = req.staffID,
-        token    = token
+        **req.dict(), 
+        token = token
     )
     db.add(new_add)
     db.commit()

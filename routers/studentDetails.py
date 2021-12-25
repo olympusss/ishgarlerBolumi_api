@@ -10,22 +10,7 @@ student_detail_router = APIRouter()
 
 @student_detail_router.post("/add-student-detail")
 def add_student_detail(req: add_studentDetail, db: Session = Depends(get_db)):
-    new_add = studentD(
-        yashayanYeri    = req.yashayanYeri,
-        okuwaGirenYID   = req.okuwaGirenYID,
-        studentID       = req.studentID,
-        doglanSenesi    = req.doglanSenesi,
-        doglanYeri      = req.doglanYeri,
-        milleti         = req.milleti,
-        tamamlanMek     = req.tamamlanMek,
-        bilyanDilleri   = req.bilyanDilleri,
-        hunar           = req.hunar,
-        alymlykDereje   = req.alymlykDereje,
-        bilimi          = req.bilimi,
-        partiyaAgzasy   = req.partiyaAgzasy,
-        dasYurtBolm     = req.dasYurtBolm,
-        mejlisAgzasy    = req.mejlisAgzasy
-    )
+    new_add = studentD(**req.dict())
     if new_add:
         db.add(new_add)
         db.commit()
