@@ -78,7 +78,7 @@ def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File
     with open(path,  "wb") as file_object:
         shutil.copyfileobj(file.file, file_object)
         
-    new_update = db.query(Students).filter(Students.id == id).\
+    new_update = db.query(Students).filter(Students.studentID == id).\
         update({Students.image: upload_file_path}, synchronize_session=False)
     db.commit()
     if new_update:
