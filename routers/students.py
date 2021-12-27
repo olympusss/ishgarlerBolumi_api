@@ -70,7 +70,7 @@ def delete_student(id: int, db: Session = Depends(get_db)):
 @students_router.put("/upload-image")
 def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File(...)):
     
-    path = sys.path[0] + "/uploads/students"
+    path = sys.path[0] + "/uploads/students/"
     if not os.path.exists(path):
         os.makedirs(path)
     path = path + f"\\{file.filename}"
