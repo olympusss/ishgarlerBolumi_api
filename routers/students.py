@@ -31,7 +31,8 @@ def get_student(db: Session = Depends(get_db)):
         Students.surname,
         Students.courseID,
         Students.facultyID,
-        Students.klass
+        Students.klass,
+        Students.image
     ).all()
     if result:
         return result
