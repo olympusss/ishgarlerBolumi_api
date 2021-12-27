@@ -7,6 +7,7 @@ from returns import Returns
 import sys
 import os
 import shutil
+import uuid
 
 students_router = APIRouter()
 
@@ -69,12 +70,17 @@ def delete_student(id: int, db: Session = Depends(get_db)):
     
 @students_router.put("/upload-image")
 def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File(...)):
+    sp = file.filename.split(".")
+    extension = sp[-1]
+    random = str(uuid.uuid4())
+    new_name = random + "." + extension
     
     path = sys.path[0] + "/uploads/students/"
     if not os.path.exists(path):
         os.makedirs(path)
-    path = path + f"\\{file.filename}"
-    upload_file_path = "uploads/students/" + file.filename
+    path = path + f"\\{new_name}"
+    upload_file_path = "uploads/students/" + new_name
+
     
     with open(path,  "wb") as file_object:
         shutil.copyfileobj(file.file, file_object)
@@ -86,5 +92,3 @@ def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File
         return Returns.UPDATED
     else:
         return Returns.NOT_UPDATED
-        
-    
