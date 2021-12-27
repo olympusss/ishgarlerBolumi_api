@@ -78,7 +78,7 @@ def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File
     path = sys.path[0] + "/uploads/students/"
     if not os.path.exists(path):
         os.makedirs(path)
-    path = path + f"\\{new_name}"
+    path = path + f"{new_name}"
     upload_file_path = "uploads/students/" + new_name
 
     
