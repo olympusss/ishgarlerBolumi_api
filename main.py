@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from db import Base, engine
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from routers import students_router
 from routers import parents_router
 from routers import student_detail_router
@@ -19,6 +20,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount('/uploads', StaticFiles(directory="uploads"), name="uploads")
 
 Base.metadata.create_all(engine)
 app.include_router(authentication_router  , tags=["Authentication"])
