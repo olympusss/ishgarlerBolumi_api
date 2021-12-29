@@ -59,7 +59,7 @@ class Faculties(Base):
     nameTM         = Column(String, nullable=False)
     nameRU         = Column(String, nullable=False)
     nameEN         = Column(String, nullable=False)
-    deanID         = Column(Integer, nullable=False)
+    deanID         = Column(Integer)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
     

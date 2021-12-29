@@ -26,6 +26,7 @@ def get_welayat(db: Session = Depends(get_db)):
         db.refresh(new_add)
         if not new_add:
             return Returns.NOT_INSERTED
+    f.close()
     result = db.query(
         Welayatlar.id,
         Welayatlar.name,
