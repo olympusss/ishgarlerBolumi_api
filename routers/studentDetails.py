@@ -27,6 +27,7 @@ def get_student_detail(db: Session = Depends(get_db)):
     result = db.query(
         studentD.id,
         studentD.yashayanYeri,
+        studentD.salgydakyYeri,
         studentD.okuwaGirenYID,
         studentD.studentID,
         studentD.doglanSenesi,
@@ -51,6 +52,7 @@ def update_student_detail(id: int, req: add_studentDetail, db: Session = Depends
     new_update = db.query(studentD).filter(studentD.id == id).\
         update({
             studentD.yashayanYeri   : req.yashayanYeri,
+            studentD.salgydakyYeri  : req.salgydakyYeri,
             studentD.okuwaGirenYID  : req.okuwaGirenYID,
             studentD.studentID      : req.studentID,
             studentD.doglanSenesi   : req.doglanSenesi,

@@ -37,6 +37,7 @@ class studentDetails(Base):
     __tablename__  = "studentDetails"
     id             = Column(Integer, primary_key=True, index=True)
     yashayanYeri   = Column(String, nullable=False)
+    salgydakyYeri  = Column(String, nullable=False)
     okuwaGirenYID  = Column(Integer, nullable=False)
     studentID      = Column(Integer, nullable=False)
     doglanSenesi   = Column(String, nullable=False)

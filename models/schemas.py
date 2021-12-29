@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 from typing import List
-
-from sqlalchemy.sql.expression import true
 from db.connection import Base
 
 class add_student(BaseModel):
@@ -33,6 +31,7 @@ class add_parent(BaseModel):
         
 class add_studentDetail(BaseModel):
     yashayanYeri   : str
+    salgydakyYeri  : str
     okuwaGirenYID  : int
     studentID      : int
     doglanSenesi   : str
