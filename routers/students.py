@@ -12,7 +12,7 @@ import uuid
 students_router = APIRouter()
 
 @students_router.post("/add-student")
-def add_student(req: add_student, db: Session = Depends(get_db)):
+async def add_student(req: add_student, db: Session = Depends(get_db)):
     new_add = Students(**req.dict())
     if new_add:
         db.add(new_add)
@@ -23,7 +23,7 @@ def add_student(req: add_student, db: Session = Depends(get_db)):
         return Returns.NOT_INSERTED
     
 @students_router.get("/get-student")
-def get_student(db: Session = Depends(get_db)):
+async def get_student(db: Session = Depends(get_db)):
     result = db.query(
         Students.id,
         Students.studentID,
@@ -41,7 +41,7 @@ def get_student(db: Session = Depends(get_db)):
         return Returns.BODY_NULL
     
 @students_router.put("/update-student")
-def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
+async def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
     new_update = db.query(Students).filter(Students.id == id).\
         update({
             Students.studentID  : req.studentID,
@@ -59,7 +59,7 @@ def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
         return Returns.NOT_UPDATED
     
 @students_router.delete("/delete-student")
-def delete_student(id: int, db: Session = Depends(get_db)):
+async def delete_student(id: int, db: Session = Depends(get_db)):
     new_delete = db.query(Students).filter(Students.id == id).\
         delete(synchronize_session=False)
     db.commit()
@@ -69,7 +69,7 @@ def delete_student(id: int, db: Session = Depends(get_db)):
         return Returns.NOT_DELETED
     
 @students_router.put("/upload-image")
-def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File(...)):
+async def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile = File(...)):
     sp = file.filename.split(".")
     extension = sp[-1]
     random = str(uuid.uuid4())

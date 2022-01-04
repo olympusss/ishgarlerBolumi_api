@@ -9,7 +9,7 @@ from tokens import create_access_token, check_token
 authentication_router = APIRouter()
 
 @authentication_router.post("/sign-up")
-def log_on(req: sign_up, db: Session = Depends(get_db)):
+async def log_on(req: sign_up, db: Session = Depends(get_db)):
     get_user = db.query(
         Registration.username,
         Registration.password
@@ -39,7 +39,7 @@ def log_on(req: sign_up, db: Session = Depends(get_db)):
         return Returns.NOT_INSERTED
     
 @authentication_router.post("/sign-in")
-def sign_in(req: sign_in, db: Session = Depends(get_db)):
+async def sign_in(req: sign_in, db: Session = Depends(get_db)):
     get_user = db.query(Registration.token).\
         filter(and_(
             Registration.username == req.username,

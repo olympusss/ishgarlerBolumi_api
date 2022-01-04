@@ -8,7 +8,7 @@ import json
 welayat_router = APIRouter()
 
 @welayat_router.get("/get-welayat")
-def get_welayat(db: Session = Depends(get_db)):
+async def get_welayat(db: Session = Depends(get_db)):
     result = db.query(
         Welayatlar.id,
         Welayatlar.name,

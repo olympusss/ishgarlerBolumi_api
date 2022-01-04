@@ -9,7 +9,7 @@ student_detail_router = APIRouter()
 
 
 @student_detail_router.post("/add-student-detail")
-def add_student_detail(req: add_studentDetail, db: Session = Depends(get_db)):
+async def add_student_detail(req: add_studentDetail, db: Session = Depends(get_db)):
     new_add = studentD(**req.dict())
     if new_add:
         db.add(new_add)
@@ -23,7 +23,7 @@ def add_student_detail(req: add_studentDetail, db: Session = Depends(get_db)):
 
 
 @student_detail_router.get("/get-student-detail")
-def get_student_detail(db: Session = Depends(get_db)):
+async def get_student_detail(db: Session = Depends(get_db)):
     result = db.query(
         studentD.id,
         studentD.yashayanYeri,
@@ -48,7 +48,7 @@ def get_student_detail(db: Session = Depends(get_db)):
         return result
     
 @student_detail_router.put("/update-student-detail")
-def update_student_detail(id: int, req: add_studentDetail, db: Session = Depends(get_db)):
+async def update_student_detail(id: int, req: add_studentDetail, db: Session = Depends(get_db)):
     new_update = db.query(studentD).filter(studentD.id == id).\
         update({
             studentD.yashayanYeri   : req.yashayanYeri,
@@ -74,7 +74,7 @@ def update_student_detail(id: int, req: add_studentDetail, db: Session = Depends
         return Returns.NOT_UPDATED
     
 @student_detail_router.delete("/delete-student-detail")
-def delete_student_detail(id: int, db: Session = Depends(get_db)):
+async def delete_student_detail(id: int, db: Session = Depends(get_db)):
     new_delete = db.query(studentD).filter(studentD.id == id).\
         delete(synchronize_session=False)
     db.commit()

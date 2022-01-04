@@ -100,3 +100,19 @@ class sign_up(sign_in):
     staffID     : int
     class Config:
         orm_mode = True
+        
+class detail_schema(BaseModel):
+    salgydaky_yeri         : str
+    jynsy                  : int
+    harby_gulluk           : int
+    UYJ_galyarmy           : int
+    UYJ_otag_belgi         : str
+    passport_belgi         : str
+    passport_berlen_senesi : str
+    passport_kim_tar_berl  : str
+    masgala_yagdayy        : int
+    onki_familiyasy        : str
+    wel_bol_UYJ_cykanlar   : int
+    
+    class Config:
+        orm_mode = True

@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, DateTime, Float, Boolean, ForeignKey
-from sqlalchemy.sql.expression import null
 from db import Base
+from sqlalchemy.orm import relationship
 from datetime import datetime
+
+
 
 class Students(Base):
     __tablename__  = "students"
@@ -10,12 +12,16 @@ class Students(Base):
     fatherName     = Column(String, nullable=False)
     name           = Column(String, nullable=False)
     surname        = Column(String, nullable=False)
-    courseID       = Column(Integer, nullable=False)
-    facultyID      = Column(Integer, nullable=False)
+    courseID       = Column(Integer, ForeignKey("courses.id"))
+    facultyID      = Column(Integer, ForeignKey("faculties.id"))
     klass          = Column(String, nullable=False)
     image          = Column(String, nullable=True)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    students_parents        = relationship("Parents"       , back_populates="parents_students")
+    students_studentdetails = relationship("studentDetails", back_populates="studentdetails_students")
+    students_faculties      = relationship("Faculties"     , back_populates="faculties_students")
+    students_courses        = relationship("Courses"       , back_populates="courses_students")
     
 class Parents(Base):
     __tablename__  = "parents"
@@ -28,18 +34,20 @@ class Parents(Base):
     yashayanYeri   = Column(String, nullable=False)
     workingPlace   = Column(String, nullable=False)
     sudimost       = Column(String, nullable=False)
-    studentID      = Column(Integer, nullable=False)
-    parentstatusID = Column(Integer, nullable=False)
+    studentID      = Column(Integer, ForeignKey("students.id"))
+    parentstatusID = Column(Integer, ForeignKey("parentStatus.id"))
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    parents_students     = relationship("Students", back_populates="students_parents")
+    parents_parentstatus = relationship("parentStatus", back_populates="parentstatus_parents")
     
 class studentDetails(Base):
     __tablename__  = "studentDetails"
     id             = Column(Integer, primary_key=True, index=True)
     yashayanYeri   = Column(String, nullable=False)
     salgydakyYeri  = Column(String, nullable=False)
-    okuwaGirenYID  = Column(Integer, nullable=False)
-    studentID      = Column(Integer, nullable=False)
+    okuwaGirenYID  = Column(Integer, ForeignKey("welayatlar.id"))
+    studentID      = Column(Integer, ForeignKey("students.id"))
     doglanSenesi   = Column(String, nullable=False)
     doglanYeri     = Column(String, nullable=False)
     milleti        = Column(String, nullable=False)
@@ -53,6 +61,8 @@ class studentDetails(Base):
     mejlisAgzasy   = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    studentdetails_students   = relationship("Students", back_populates="students_studentdetails")
+    studentdetails_welayatlar = relationship("Welayatlar", back_populates="welayatlar_studentdetails")
     
 class Faculties(Base):
     __tablename__  = "faculties"
@@ -63,6 +73,7 @@ class Faculties(Base):
     deanID         = Column(Integer)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    faculties_students = relationship("Students", back_populates="students_faculties")
     
 class Welayatlar(Base):
     __tablename__  = "welayatlar"
@@ -70,6 +81,7 @@ class Welayatlar(Base):
     name           = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    welayatlar_studentdetails = relationship("studentDetails", back_populates="studentdetails_welayatlar")
     
 class parentStatus(Base):
     __tablename__  = "parentStatus"
@@ -78,6 +90,7 @@ class parentStatus(Base):
     name           = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    parentstatus_parents = relationship("Parents", back_populates="parents_parentstatus")
     
 class Registration(Base):
     __tablename__  = "registration"
@@ -89,3 +102,28 @@ class Registration(Base):
     token          = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    
+class Details(Base):
+    __tablename__          = "details"
+    id                     = Column(Integer, primary_key=True, index=True)
+    salgydaky_yeri         = Column(String,  nullable=False, default='Lebap')
+    jynsy                  = Column(Integer, nullable=False, default=1)
+    harby_gulluk           = Column(Integer, nullable=False, default=0)
+    UYJ_galyarmy           = Column(Integer, nullable=False, default=1)
+    UYJ_otag_belgi         = Column(String,  nullable=True)
+    passport_belgi         = Column(String,  nullable=False)
+    passport_berlen_senesi = Column(String,  nullable=False)
+    passport_kim_tar_berl  = Column(String,  nullable=False)
+    masgala_yagdayy        = Column(Integer, nullable=False, default=0)
+    onki_familiyasy        = Column(String,  nullable=True)
+    wel_bol_UYJ_cykanlar   = Column(Integer, nullable=False, default=1)
+    createAt               = Column(DateTime, default=datetime.now(), nullable=False)
+    updateAt               = Column(DateTime, default=datetime.now(), nullable=False)
+    
+class Courses(Base):
+    __tablename__  = "courses"
+    id             = Column(Integer, primary_key=True, index=True)
+    name           = Column(Integer, nullable=False)
+    createAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    courses_students = relationship("Students", back_populates="students_courses")

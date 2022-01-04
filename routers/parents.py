@@ -8,7 +8,7 @@ from returns import Returns
 parents_router = APIRouter()
 
 @parents_router.post("/add-parent")
-def add_parent(req: add_parent, db: Session = Depends(get_db)):
+async def add_parent(req: add_parent, db: Session = Depends(get_db)):
     new_add = Parents(**req.dict())
     
     if new_add:
@@ -20,7 +20,7 @@ def add_parent(req: add_parent, db: Session = Depends(get_db)):
         return Returns.NOT_INSERTED
     
 @parents_router.get("/get-parent")
-def get_parent(db: Session = Depends(get_db)):
+async def get_parent(db: Session = Depends(get_db)):
     result = db.query(
         Parents.id,
         Parents.fatherName,
@@ -41,7 +41,7 @@ def get_parent(db: Session = Depends(get_db)):
     
     
 @parents_router.put("/update-parent")
-def update_parent(id: int, req: update_parent, db: Session = Depends(get_db)):
+async def update_parent(id: int, req: update_parent, db: Session = Depends(get_db)):
     new_update = db.query(Parents).filter(Parents.id == id).\
         update({
             Parents.fatherName      : req.fatherName,
@@ -62,7 +62,7 @@ def update_parent(id: int, req: update_parent, db: Session = Depends(get_db)):
         return Returns.NOT_UPDATED
     
 @parents_router.delete("/delete-parent")
-def delete_parent(id: int, db: Session = Depends(get_db)):
+async def delete_parent(id: int, db: Session = Depends(get_db)):
     new_delete = db.query(Parents).filter(Parents.id == id).\
         delete(synchronize_session=False)
     db.commit()

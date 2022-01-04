@@ -5,6 +5,8 @@ from models.models import Faculties
 from models.models import Welayatlar
 from models.models import parentStatus
 from models.models import Registration
+from models.models import Details
+from models.models import Courses
 from models.schemas import add_student
 from models.schemas import add_parent
 from models.schemas import add_studentDetail
@@ -13,3 +15,4 @@ from models.schemas import update_student
 from models.schemas import filter_students
 from models.schemas import sign_up
 from models.schemas import sign_in
+from models.schemas import detail_schema
