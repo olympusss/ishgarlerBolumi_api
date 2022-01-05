@@ -61,8 +61,10 @@ class studentDetails(Base):
     mejlisAgzasy   = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
-    studentdetails_students   = relationship("Students", back_populates="students_studentdetails")
-    studentdetails_welayatlar = relationship("Welayatlar", back_populates="welayatlar_studentdetails")
+    studentdetails_students     = relationship("Students"    , back_populates="students_studentdetails")
+    studentdetails_welayatlar   = relationship("Welayatlar"  , back_populates="welayatlar_studentdetails")
+    studentdetails_islanyerleri = relationship("IslanYerleri", back_populates="islanyerleri_studentdetails")
+    studentdetails_thirddetails = relationship("ThirdDetails", back_populates="thirddetails_studentdetails")
     
 class Faculties(Base):
     __tablename__  = "faculties"
@@ -127,3 +129,28 @@ class Courses(Base):
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
     courses_students = relationship("Students", back_populates="students_courses")
+    
+
+class IslanYerleri(Base):
+    __tablename__  = "islan_yerleri"
+    id             = Column(Integer, primary_key=True, index=True)
+    wagt           = Column(String,  nullable=False, default="123456789")
+    yeri           = Column(String, nullable=False, default="Lebap Energo")
+    studentD_id    = Column(Integer, ForeignKey("studentDetails.id"))
+    createAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    islanyerleri_studentdetails = relationship("studentDetails", back_populates="studentdetails_islanyerleri")
+    
+
+class ThirdDetails(Base):
+    __tablename__  = "third_details"
+    id             = Column(Integer, primary_key=True, index=True)
+    oy_salgysy     = Column(String,  nullable=False, default="123456789")
+    oy_telefony    = Column(String,  nullable=False, default="123456789")
+    el_telefony    = Column(String,  nullable=False, default="123456789")
+    kakasynyn_tel  = Column(String,  nullable=False, default="123456789")
+    ejesinin_tel   = Column(String,  nullable=False, default="123456789")
+    studentD_id    = Column(Integer, ForeignKey("studentDetails.id"), default=2)
+    createAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
+    thirddetails_studentdetails = relationship("studentDetails", back_populates="studentdetails_thirddetails")

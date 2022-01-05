@@ -116,3 +116,34 @@ class detail_schema(BaseModel):
     
     class Config:
         orm_mode = True
+        
+        
+class ThirdDetail_update(BaseModel):
+    oy_salgysy    : str
+    oy_telefony   : str
+    el_telefony   : str
+    kakasynyn_tel : str
+    ejesinin_tel  : str
+    
+    class Config:
+        orm_mode = True
+        
+class ThirdDetail_add(ThirdDetail_update):
+    studentD_id   : int
+    
+    class Config:
+        orm_mode = True
+        
+    
+class IslanYerleri_update(BaseModel):
+    wagt : str
+    yeri : str
+    
+    class Config:
+        orm_mode = True
+        
+class IslanYerleri_add(IslanYerleri_update):
+    studentD_id : int
+    
+    class Config:
+        orm_mode = True

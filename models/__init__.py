@@ -7,6 +7,8 @@ from models.models import parentStatus
 from models.models import Registration
 from models.models import Details
 from models.models import Courses
+from models.models import IslanYerleri
+from models.models import ThirdDetails
 from models.schemas import add_student
 from models.schemas import add_parent
 from models.schemas import add_studentDetail
@@ -16,3 +18,7 @@ from models.schemas import filter_students
 from models.schemas import sign_up
 from models.schemas import sign_in
 from models.schemas import detail_schema
+from models.schemas import ThirdDetail_update
+from models.schemas import ThirdDetail_add
+from models.schemas import IslanYerleri_add
+from models.schemas import IslanYerleri_update
