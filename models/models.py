@@ -88,7 +88,6 @@ class Welayatlar(Base):
 class parentStatus(Base):
     __tablename__  = "parentStatus"
     id             = Column(Integer, primary_key=True, index=True)
-    status         = Column(String, nullable=False)
     name           = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
@@ -125,7 +124,7 @@ class Details(Base):
 class Courses(Base):
     __tablename__  = "courses"
     id             = Column(Integer, primary_key=True, index=True)
-    name           = Column(Integer, nullable=False)
+    name           = Column(String, nullable=False)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
     courses_students = relationship("Students", back_populates="students_courses")

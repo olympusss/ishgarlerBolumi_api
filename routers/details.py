@@ -8,7 +8,7 @@ from models import detail_schema, Details as D
 detail_router = APIRouter()
 
 @detail_router.get("/get-detail")
-async def get_detail(db: Session = Depends(get_db)):
+async def get_detail(id: int, db: Session = Depends(get_db)):
     result = db.query(
         D.id,
         D.salgydaky_yeri,
@@ -22,7 +22,7 @@ async def get_detail(db: Session = Depends(get_db)):
         D.masgala_yagdayy,
         D.onki_familiyasy,
         D.wel_bol_UYJ_cykanlar
-    ).all()
+    ).filter(D.id == id).all()
     if result:
         return Returns.object(result)
     else:
@@ -36,7 +36,7 @@ async def add_detail(detail: detail_schema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_add)
     if new_add:
-        return Returns.INSERTED
+        return Returns.id(new_add.id)
     else:
         return Returns.NOT_INSERTED
     

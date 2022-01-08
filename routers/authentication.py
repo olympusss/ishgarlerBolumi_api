@@ -15,7 +15,7 @@ async def log_on(req: sign_up, db: Session = Depends(get_db)):
         Registration.password
     ).filter(
         and_(
-            Registration.username == req.username, 
+            Registration.username == req.username,
             Registration.password == req.password
         )).first()
     if get_user:

@@ -58,14 +58,12 @@ class update_parent(BaseModel):
     yashayanYeri   : str
     workingPlace   : str
     sudimost       : str
-    studentID      : int
     parentstatusID : int
     
     class Config:
         orm_mode = True   
 
 class update_student(BaseModel):
-    studentID   : int
     fatherName  : str
     name        : str
     surname     : str

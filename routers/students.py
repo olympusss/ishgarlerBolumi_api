@@ -18,11 +18,29 @@ async def add_student(req: add_student, db: Session = Depends(get_db)):
         db.add(new_add)
         db.commit()
         db.refresh(new_add)
-        return Returns.INSERTED
+        return Returns.id(new_add.id)
     else:
         return Returns.NOT_INSERTED
     
 @students_router.get("/get-student")
+async def get_student(id: int, db: Session = Depends(get_db)):
+    result = db.query(
+        Students.id,
+        Students.studentID,
+        Students.fatherName,
+        Students.name,
+        Students.surname,
+        Students.courseID,
+        Students.facultyID,
+        Students.klass,
+        Students.image
+    ).filter(Students.id == id).first()
+    if result:
+        return Returns.object(result)
+    else:
+        return Returns.BODY_NULL
+    
+@students_router.post("/get-students")
 async def get_student(db: Session = Depends(get_db)):
     result = db.query(
         Students.id,
@@ -36,7 +54,7 @@ async def get_student(db: Session = Depends(get_db)):
         Students.image
     ).all()
     if result:
-        return result
+        return Returns.object(result)
     else:
         return Returns.BODY_NULL
     
@@ -44,11 +62,10 @@ async def get_student(db: Session = Depends(get_db)):
 async def update_student(id: int, req: update_student, db: Session = Depends(get_db)):
     new_update = db.query(Students).filter(Students.id == id).\
         update({
-            Students.studentID  : req.studentID,
             Students.fatherName : req.fatherName,
             Students.name       : req.name,
             Students.surname    : req.surname,
-            Students.courseID   : req.course,
+            Students.courseID   : req.courseID,
             Students.facultyID  : req.facultyID,
             Students.klass      : req.klass
         }, synchronize_session=False)
@@ -85,7 +102,7 @@ async def upload_image(id: int, db: Session = Depends(get_db), file: UploadFile 
     with open(path,  "wb") as file_object:
         shutil.copyfileobj(file.file, file_object)
         
-    new_update = db.query(Students).filter(Students.studentID == id).\
+    new_update = db.query(Students).filter(Students.id == id).\
         update({Students.image: upload_file_path}, synchronize_session=False)
     db.commit()
     if new_update:

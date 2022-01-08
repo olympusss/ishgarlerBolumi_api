@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.operators import endswith_op
 from db import get_db
+from sqlalchemy import and_, or_
 from models import Parents, add_parent, update_parent
 from returns import Returns
+from typing import Optional
+
 
 parents_router = APIRouter()
 
@@ -15,12 +17,12 @@ async def add_parent(req: add_parent, db: Session = Depends(get_db)):
         db.add(new_add)
         db.commit()
         db.refresh(new_add)
-        return Returns.INSERTED
+        return Returns.id(new_add.id)
     else:
         return Returns.NOT_INSERTED
     
 @parents_router.get("/get-parent")
-async def get_parent(db: Session = Depends(get_db)):
+async def get_parent(studentID: int, db: Session = Depends(get_db)):
     result = db.query(
         Parents.id,
         Parents.fatherName,
@@ -33,9 +35,9 @@ async def get_parent(db: Session = Depends(get_db)):
         Parents.sudimost,
         Parents.studentID,
         Parents.parentstatusID
-    ).all()
+    ).filter(Parents.studentID == studentID).all()
     if result:
-        return result
+        return Returns.object(result)
     else:
         return Returns.BODY_NULL
     
@@ -52,7 +54,6 @@ async def update_parent(id: int, req: update_parent, db: Session = Depends(get_d
             Parents.yashayanYeri    : req.yashayanYeri,
             Parents.workingPlace    : req.workingPlace,
             Parents.sudimost        : req.sudimost,
-            Parents.studentID       : req.studentID,
             Parents.parentstatusID  : req.parentstatusID
         }, synchronize_session=False)
     db.commit()
@@ -62,8 +63,8 @@ async def update_parent(id: int, req: update_parent, db: Session = Depends(get_d
         return Returns.NOT_UPDATED
     
 @parents_router.delete("/delete-parent")
-async def delete_parent(id: int, db: Session = Depends(get_db)):
-    new_delete = db.query(Parents).filter(Parents.id == id).\
+async def delete_parent(id: Optional[int] = None, studentID: Optional[int] = None, db: Session = Depends(get_db)):
+    new_delete = db.query(Parents).filter(or_(Parents.id == id, Parents.studentID == studentID)).\
         delete(synchronize_session=False)
     db.commit()
     if new_delete:

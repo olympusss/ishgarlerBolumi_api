@@ -10,3 +10,6 @@ class Returns:
     
     def object(obj):
         return {"error" : False, "body" : obj}
+    
+    def id(obj):
+        return {"error" : False, "id" : obj}

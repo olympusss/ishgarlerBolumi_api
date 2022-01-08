@@ -15,7 +15,7 @@ async def add_student_detail(req: add_studentDetail, db: Session = Depends(get_d
         db.add(new_add)
         db.commit()
         db.refresh(new_add)
-        return Returns.INSERTED
+        return Returns.id(new_add.id)
     else:
         return Returns.NOT_INSERTED
 
@@ -23,7 +23,7 @@ async def add_student_detail(req: add_studentDetail, db: Session = Depends(get_d
 
 
 @student_detail_router.get("/get-student-detail")
-async def get_student_detail(db: Session = Depends(get_db)):
+async def get_student_detail(id: int, db: Session = Depends(get_db)):
     result = db.query(
         studentD.id,
         studentD.yashayanYeri,
@@ -41,7 +41,7 @@ async def get_student_detail(db: Session = Depends(get_db)):
         studentD.partiyaAgzasy,
         studentD.dasYurtBolm,
         studentD.mejlisAgzasy,
-    ).all()
+    ).filter(studentD.id == id).all()
     if not result:
         return Returns.BODY_NULL
     else:

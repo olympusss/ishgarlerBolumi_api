@@ -8,7 +8,7 @@ from models import (ThirdDetails, IslanYerleri, ThirdDetail_update, ThirdDetail_
 thirddetails_router = APIRouter()
 
 @thirddetails_router.get("/get-third-details")
-async def thirddetails(db: Session = Depends(get_db)):
+async def thirddetails(id: int, db: Session = Depends(get_db)):
     result = db.query(
         ThirdDetails.id,
         ThirdDetails.oy_salgysy,
@@ -16,7 +16,7 @@ async def thirddetails(db: Session = Depends(get_db)):
         ThirdDetails.el_telefony,
         ThirdDetails.kakasynyn_tel,
         ThirdDetails.ejesinin_tel
-    ).all()
+    ).filter(ThirdDetails.id == id).all()
     if result:
         return Returns.object(result)
     else:
@@ -30,7 +30,7 @@ async def add_third_details(detail: ThirdDetail_add, db: Session = Depends(get_d
     db.commit()
     db.refresh(new_add)
     if new_add:
-        return Returns.INSERTED
+        return Returns.id(new_add.id)
     else:
         return Returns.NOT_INSERTED
     
@@ -63,12 +63,12 @@ async def delete_third_details(id: int, db: Session = Depends(get_db)):
     
     
 @thirddetails_router.get("/get-islan-yerleri")
-async def get_islan_yerleri(db: Session = Depends(get_db)):
+async def get_islan_yerleri(id: int, db: Session = Depends(get_db)):
     result = db.query(
         IslanYerleri.id,
         IslanYerleri.wagt,
         IslanYerleri.yeri
-    ).all()
+    ).filter(IslanYerleri.id == id).all()
     if result:
         return Returns.object(result)
     else:
@@ -82,7 +82,7 @@ async def add_islan_yerleri(req: IslanYerleri_add, db: Session = Depends(get_db)
     db.commit()
     db.refresh(new_add)
     if new_add:
-        return Returns.INSERTED
+        return Returns.id(new_add.id)
     else:
         return Returns.NOT_INSERTED
     
