@@ -141,7 +141,7 @@ class IslanYerleri_update(BaseModel):
         orm_mode = True
         
 class IslanYerleri_add(IslanYerleri_update):
-    studentD_id : int
+    studentID : int
     
     class Config:
         orm_mode = True
