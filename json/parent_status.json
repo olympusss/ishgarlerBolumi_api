@@ -18,10 +18,7 @@
         "name" : "Ejesi"
     },
     {
-        "name" : "Ayal dogany"
-    },
-    {
-        "name" : "Erkek dogany"
+        "name" : "Dogany"
     },
     {
         "name" : "Adamsy"
@@ -31,5 +28,47 @@
     },
     {
         "name" : "Cagasy"
+    },
+    {
+        "name" : "Ayalynyn babasy"
+    },
+    {
+        "name" : "Ayalynyn mamasy"
+    },
+    {
+        "name" : "Ayalynyn atasy"
+    },
+    {
+        "name" : "Ayalynyn enesi"
+    },
+    {
+        "name" : "Ayalynyn ejesi"
+    },
+    {
+        "name" : "Ayalynyn kakasy"
+    },
+    {
+        "name" : "Ayalynyn dogany"
+    },
+    {
+        "name" : "Adamsynyn babasy"
+    },
+    {
+        "name" : "Adamsynyn mamasy"
+    },
+    {
+        "name" : "Adamsynyn atasy"
+    },
+    {
+        "name" : "Adamsynyn enesi"
+    },
+    {
+        "name" : "Adamsynyn ejesi"
+    },
+    {
+        "name" : "Adamsynyn kakasy"
+    },
+    {
+        "name" : "Adamsynyn dogany"
     }
 ]
