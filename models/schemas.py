@@ -113,6 +113,8 @@ class detail_schema(BaseModel):
     wel_bol_UYJ_cykanlar   : int
     tayyatlyk_ugry         : str
     bellik                 : str
+    temmi                  : str
+    studentID              : int
     
     class Config:
         orm_mode = True

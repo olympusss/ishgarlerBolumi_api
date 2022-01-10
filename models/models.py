@@ -23,6 +23,7 @@ class Students(Base):
     students_faculties      = relationship("Faculties"     , back_populates="faculties_students")
     students_courses        = relationship("Courses"       , back_populates="courses_students")
     students_islanyerleri   = relationship("IslanYerleri"  , back_populates="islanyerleri_students")
+    students_details        = relationship("Details"       , back_populates="details_students")
     
     
 class Parents(Base):
@@ -109,6 +110,8 @@ class Details(Base):
     __tablename__          = "details"
     id                     = Column(Integer, primary_key=True, index=True)
     salgydaky_yeri         = Column(String,  nullable=False, default='Lebap')
+    studentID              = Column(Integer, ForeignKey("students.id"))
+    temmi                  = Column(String,  nullable=True)
     jynsy                  = Column(Integer, nullable=False, default=1)
     harby_gulluk           = Column(Integer, nullable=False, default=0)
     UYJ_galyarmy           = Column(Integer, nullable=False, default=1)
@@ -120,9 +123,10 @@ class Details(Base):
     onki_familiyasy        = Column(String,  nullable=True)
     wel_bol_UYJ_cykanlar   = Column(Integer, nullable=False, default=1)
     tayyatlyk_ugry         = Column(String,  nullable=False)
-    bellik                 = Column(String)
+    bellik                 = Column(String,  nullable=True)
     createAt               = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt               = Column(DateTime, default=datetime.now(), nullable=False)
+    details_students       = relationship("Students", back_populates="students_details")
     
 class Courses(Base):
     __tablename__  = "courses"

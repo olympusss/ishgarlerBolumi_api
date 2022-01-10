@@ -8,12 +8,13 @@ from models import detail_schema, Details as D
 detail_router = APIRouter()
 
 @detail_router.get("/get-detail")
-async def get_detail(id: int, db: Session = Depends(get_db)):
+async def get_detail(studentID: int, db: Session = Depends(get_db)):
     result = db.query(
         D.id,
         D.salgydaky_yeri,
         D.jynsy,
         D.harby_gulluk,
+        D.temmi,
         D.UYJ_galyarmy,
         D.UYJ_otag_belgi,
         D.passport_belgi,
@@ -24,7 +25,7 @@ async def get_detail(id: int, db: Session = Depends(get_db)):
         D.wel_bol_UYJ_cykanlar,
         D.tayyatlyk_ugry,
         D.bellik
-    ).filter(D.id == id).all()
+    ).filter(D.studentID == studentID).all()
     if result:
         return Returns.object(result)
     else:
@@ -44,8 +45,8 @@ async def add_detail(detail: detail_schema, db: Session = Depends(get_db)):
     
     
 @detail_router.put("/update-detail")
-async def update_detail(id: int, req: detail_schema, db: Session = Depends(get_db)):
-    new_update = db.query(D).filter(D.id == id).\
+async def update_detail(studentID: int, req: detail_schema, db: Session = Depends(get_db)):
+    new_update = db.query(D).filter(D.studentID == studentID).\
         update({
             D.salgydaky_yeri         : req.salgydaky_yeri,
             D.jynsy                  : req.jynsy,
@@ -59,7 +60,8 @@ async def update_detail(id: int, req: detail_schema, db: Session = Depends(get_d
             D.onki_familiyasy        : req.onki_familiyasy,
             D.wel_bol_UYJ_cykanlar   : req.wel_bol_UYJ_cykanlar,
             D.tayyatlyk_ugry         : req.tayyatlyk_ugry,
-            D.bellik                 : req.bellik
+            D.bellik                 : req.bellik,
+            D.temmi                  : req.temmi
         }, synchronize_session=False)
     db.commit()
     if new_update:
