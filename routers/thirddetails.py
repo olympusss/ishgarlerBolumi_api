@@ -63,12 +63,12 @@ async def delete_third_details(id: int, db: Session = Depends(get_db)):
     
     
 @thirddetails_router.get("/get-islan-yerleri")
-async def get_islan_yerleri(id: int, db: Session = Depends(get_db)):
+async def get_islan_yerleri(studentID: int, db: Session = Depends(get_db)):
     result = db.query(
         IslanYerleri.id,
         IslanYerleri.wagt,
         IslanYerleri.yeri
-    ).filter(IslanYerleri.id == id).all()
+    ).filter(IslanYerleri.studentID == studentID).all()
     if result:
         return Returns.object(result)
     else:
