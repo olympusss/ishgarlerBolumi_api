@@ -21,7 +21,9 @@ async def get_detail(id: int, db: Session = Depends(get_db)):
         D.passport_kim_tar_berl,
         D.masgala_yagdayy,
         D.onki_familiyasy,
-        D.wel_bol_UYJ_cykanlar
+        D.wel_bol_UYJ_cykanlar,
+        D.tayyatlyk_ugry,
+        D.bellik
     ).filter(D.id == id).all()
     if result:
         return Returns.object(result)
@@ -55,7 +57,9 @@ async def update_detail(id: int, req: detail_schema, db: Session = Depends(get_d
             D.passport_kim_tar_berl  : req.passport_kim_tar_berl,
             D.masgala_yagdayy        : req.masgala_yagdayy,
             D.onki_familiyasy        : req.onki_familiyasy,
-            D.wel_bol_UYJ_cykanlar   : req.wel_bol_UYJ_cykanlar
+            D.wel_bol_UYJ_cykanlar   : req.wel_bol_UYJ_cykanlar,
+            D.tayyatlyk_ugry         : req.tayyatlyk_ugry,
+            D.bellik                 : req.bellik
         }, synchronize_session=False)
     db.commit()
     if new_update:

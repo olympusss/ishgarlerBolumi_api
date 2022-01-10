@@ -119,6 +119,8 @@ class Details(Base):
     masgala_yagdayy        = Column(Integer, nullable=False, default=0)
     onki_familiyasy        = Column(String,  nullable=True)
     wel_bol_UYJ_cykanlar   = Column(Integer, nullable=False, default=1)
+    tayyatlyk_ugry         = Column(String,  nullable=False)
+    bellik                 = Column(String)
     createAt               = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt               = Column(DateTime, default=datetime.now(), nullable=False)
     

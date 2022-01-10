@@ -111,6 +111,8 @@ class detail_schema(BaseModel):
     masgala_yagdayy        : int
     onki_familiyasy        : str
     wel_bol_UYJ_cykanlar   : int
+    tayyatlyk_ugry         : str
+    bellik                 : str
     
     class Config:
         orm_mode = True
