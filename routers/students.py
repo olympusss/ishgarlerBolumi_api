@@ -40,8 +40,8 @@ async def get_student(id: int, db: Session = Depends(get_db)):
     else:
         return Returns.BODY_NULL
     
-@students_router.post("/get-students")
-async def get_student(db: Session = Depends(get_db)):
+@students_router.get("/get-students")
+async def get_student(page: int, db: Session = Depends(get_db)):
     result = db.query(
         Students.id,
         Students.studentID,
@@ -52,9 +52,14 @@ async def get_student(db: Session = Depends(get_db)):
         Students.facultyID,
         Students.klass,
         Students.image
-    ).all()
-    if result:
-        return Returns.object(result)
+    )
+    result_count = result.count()
+    result = result.order_by(desc(Students.createAt)).offset(30 * (page - 1)).limit(30).all()
+    final_result = {}
+    final_result["students"] = result
+    final_result["count"] = (result_count // 30) + 1
+    if final_result:
+        return Returns.object(final_result)
     else:
         return Returns.BODY_NULL
     
