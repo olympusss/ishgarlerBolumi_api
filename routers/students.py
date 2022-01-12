@@ -40,7 +40,7 @@ async def get_student(id: int, db: Session = Depends(get_db)):
     else:
         return Returns.BODY_NULL
     
-@students_router.get("/get-students")
+@students_router.post("/get-students")
 async def get_student(page: int, db: Session = Depends(get_db)):
     result = db.query(
         Students.id,
