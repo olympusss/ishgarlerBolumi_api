@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Request, UploadFile, File
 from sqlalchemy.orm import Session
 from sqlalchemy import asc, desc, and_, or_
 from db import get_db
-from models import Students, add_student, update_student, filter_students
+from models import Students, add_student, update_student, Details, ThirdDetails
 from returns import Returns
 import sys
 import os
@@ -51,7 +51,9 @@ async def get_student(page: int, db: Session = Depends(get_db)):
         Students.courseID,
         Students.facultyID,
         Students.klass,
-        Students.image
+        Students.image,
+        Details.tayyatlyk_ugry,
+        ThirdDetails.el_telefony
     )
     result_count = result.count()
     result = result.order_by(desc(Students.createAt)).offset(30 * (page - 1)).limit(30).all()

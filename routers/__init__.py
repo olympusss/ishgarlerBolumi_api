@@ -7,3 +7,4 @@ from routers.parentStatus import parent_status_router
 from routers.authentication import authentication_router
 from routers.details import detail_router
 from routers.thirddetails import thirddetails_router
+from routers.ids_router import ids_router
