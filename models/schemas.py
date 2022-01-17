@@ -131,7 +131,7 @@ class ThirdDetail_update(BaseModel):
         orm_mode = True
         
 class ThirdDetail_add(ThirdDetail_update):
-    studentD_id   : int
+    student_id   : int
     
     class Config:
         orm_mode = True

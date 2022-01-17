@@ -24,6 +24,7 @@ class Students(Base):
     students_courses        = relationship("Courses"       , back_populates="courses_students")
     students_islanyerleri   = relationship("IslanYerleri"  , back_populates="islanyerleri_students")
     students_details        = relationship("Details"       , back_populates="details_students")
+    students_thirddetails   = relationship("ThirdDetails"  , back_populates="thirddetails_students")
     
     
 class Parents(Base):
@@ -66,7 +67,6 @@ class studentDetails(Base):
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
     studentdetails_students     = relationship("Students"    , back_populates="students_studentdetails")
     studentdetails_welayatlar   = relationship("Welayatlar"  , back_populates="welayatlar_studentdetails")
-    studentdetails_thirddetails = relationship("ThirdDetails", back_populates="thirddetails_studentdetails")
     
 class Faculties(Base):
     __tablename__  = "faculties"
@@ -156,7 +156,7 @@ class ThirdDetails(Base):
     el_telefony    = Column(String,  nullable=False, default="123456789")
     kakasynyn_tel  = Column(String,  nullable=False, default="123456789")
     ejesinin_tel   = Column(String,  nullable=False, default="123456789")
-    studentD_id    = Column(Integer, ForeignKey("studentDetails.id"), default=2)
+    student_id    = Column(Integer, ForeignKey("students.id"), default=2)
     createAt       = Column(DateTime, default=datetime.now(), nullable=False)
     updateAt       = Column(DateTime, default=datetime.now(), nullable=False)
-    thirddetails_studentdetails = relationship("studentDetails", back_populates="studentdetails_thirddetails")
+    thirddetails_students = relationship("Students", back_populates="students_thirddetails")
