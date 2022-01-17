@@ -58,10 +58,10 @@ async def get_student(page: int, db: Session = Depends(get_db)):
         Details.id.label("detail_id"),
         ThirdDetails.id.label("third_detail_id")
     )
-    result_count = result.count()
     result = result.join(Details, Details.studentID == Students.id)
     result = result.join(ThirdDetails, ThirdDetails.student_id == Students.id)
     result = result.join(studentDetails, studentDetails.studentID == Students.id)
+    result_count = result.count()
     result = result.order_by(desc(Students.createAt)).offset(30 * (page - 1)).limit(30).all()
     final_result = {}
     final_result["students"] = result
